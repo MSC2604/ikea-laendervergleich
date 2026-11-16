@@ -37,6 +37,8 @@ const countries=[
  {id:'pl',flag:'🇵🇱',name:'Polen',currency:'PLN',stores:['Warszawa-Janki','Warszawa-Targówek','Warszawa-Blue City'],url:'https://www.ikea.com/pl/pl/search/?q='}
 ];
 const rates={CZK:null,PLN:null};
+let fxDate=null;
+async function loadRates(){try{const r=await fetch('https://api.frankfurter.app/latest?from=EUR&to=CZK,PLN');if(!r.ok)throw new Error('FX unavailable');const d=await r.json();rates.CZK=d.rates.CZK;rates.PLN=d.rates.PLN;fxDate=d.date;updateComparison();}catch(e){fxDate=null;updateComparison();}}
 let carts=JSON.parse(localStorage.getItem('ikea-country-carts')||'{"de":[],"cz":[],"pl":[]}');
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function render(){
@@ -49,9 +51,10 @@ function changeQty(id,i,delta){carts[id][i].qty=Math.max(1,carts[id][i].qty+delt
 function removeItem(id,i){carts[id].splice(i,1);save();}
 function drawCart(c){const items=carts[c.id]||[];document.getElementById('items-'+c.id).innerHTML=items.length?items.map((x,i)=>'<div class="cart-item"><div>'+esc(x.name)+'<small>'+x.price.toFixed(2)+' '+c.currency+' je Stück</small></div><div><button onclick="changeQty(\''+c.id+'\','+i+',-1)">−</button> '+x.qty+' <button onclick="changeQty(\''+c.id+'\','+i+',1)">+</button></div><button onclick="removeItem(\''+c.id+'\','+i+')">Entfernen</button></div>').join(''):'<span style="color:#66736d">Noch keine Artikel.</span>';const total=items.reduce((s,x)=>s+x.price*x.qty,0);document.getElementById('total-'+c.id).textContent='Zwischensumme: '+total.toFixed(2)+' '+c.currency;}
 function save(){localStorage.setItem('ikea-country-carts',JSON.stringify(carts));render();}
-function updateComparison(){const sums=countries.map(c=>({c,total:(carts[c.id]||[]).reduce((s,x)=>s+x.price*x.qty,0)}));const active=sums.filter(x=>x.total>0);document.getElementById('comparison').innerHTML=active.length?sums.map(x=>'<div>'+x.c.flag+' '+x.c.name+': <strong>'+x.total.toFixed(2)+' '+x.c.currency+'</strong>'+(x.c.currency==='EUR'?'':' <span style="color:#66736d">(EUR-Umrechnung folgt in einer späteren Ausbaustufe)</span>')+'</div>').join(''):'Füge Artikel und Preise in den Länder-Warenkörben hinzu, um die Summen zu vergleichen.';}
+function updateComparison(){const sums=countries.map(c=>({c,total:(carts[c.id]||[]).reduce((s,x)=>s+x.price*x.qty,0)}));const active=sums.filter(x=>x.total>0);if(!active.length){document.getElementById('comparison').textContent='Füge Artikel und Preise in den Länder-Warenkörben hinzu, um die Summen zu vergleichen.';return;}const eur=active.map(x=>({...x,eur:x.c.currency==='EUR'?x.total:(rates[x.c.currency]?x.total/rates[x.c.currency]:null)}));const best=eur.filter(x=>x.eur!==null).sort((a,b)=>a.eur-b.eur)[0];document.getElementById('comparison').innerHTML=eur.map(x=>'<div>'+x.c.flag+' '+x.c.name+': <strong>'+x.total.toFixed(2)+' '+x.c.currency+'</strong> · '+(x.eur===null?'Umrechnung nicht verfügbar':x.eur.toFixed(2)+' €')+'</div>').join('')+(best?'<p><strong>Günstigster ermittelbarer Warenkorb:</strong> '+best.c.name+' ('+best.eur.toFixed(2)+' €)</p>':'')+'<small>EUR-Umrechnung: '+(fxDate?'Referenzkurs vom '+fxDate:'aktuell nicht abrufbar')+'. Vergleichswert, kein Kassenpreis.</small>';}
 document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('query').value.trim();if(!q)return;countries.forEach(c=>window.open(c.url+encodeURIComponent(q),'_blank','noopener'));});
 document.getElementById('query').addEventListener('input',()=>{countries.forEach(c=>{const a=document.getElementById('search-'+c.id);if(a)a.href=c.url+encodeURIComponent(document.getElementById('query').value.trim());});});
 render();
+loadRates();
 </script>
 </body></html>
