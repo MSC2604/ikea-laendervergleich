@@ -1,0 +1,61 @@
+name: IKEA product API connectivity check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/ikea-api-check.yml
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check IKEA search endpoints for DE, CZ and PL
+        run: |
+          node --input-type=module <<'NODE'
+          const markets = [
+            ["de", "de"],
+            ["cz", "cs"],
+            ["pl", "pl"]
+          ];
+          const article = "70556067";
+          for (const [country, language] of markets) {
+            const url = new URL(`https://sik.search.blue.cdtapps.com/${country}/${language}/search-result-page`);
+            url.search = new URLSearchParams({ q: article, size: "5", types: "PRODUCT" });
+            try {
+              const response = await fetch(url, {
+                headers: {
+                  "Accept": "application/json",
+                  "Origin": "https://msc2604.github.io"
+                }
+              });
+              const cors = response.headers.get("access-control-allow-origin") || "(not present)";
+              const text = await response.text();
+              let data;
+              try { data = JSON.parse(text); } catch { data = null; }
+              const items = data?.searchResultPage?.products?.main?.items ?? [];
+              const product = items[0]?.product ?? items[0] ?? null;
+              const price = product?.salesPrice?.numeral ?? null;
+              const image = product?.mainImageUrl ?? product?.imageUrl ?? product?.image?.url ?? null;
+              console.log(JSON.stringify({
+                market: country,
+                httpStatus: response.status,
+                corsAllowOrigin: cors,
+                json: Boolean(data),
+                resultCount: items.length,
+                name: product?.name ?? null,
+                typeName: product?.typeName ?? null,
+                articleNumber: product?.itemNo ?? product?.itemNumber ?? product?.id ?? null,
+                localPrice: price,
+                productUrl: product?.pipUrl ?? null,
+                imageAvailable: Boolean(image),
+                responseKeys: product ? Object.keys(product).slice(0, 30) : []
+              }));
+            } catch (error) {
+              console.log(JSON.stringify({ market: country, error: String(error) }));
+            }
+          }
+          NODE
