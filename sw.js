@@ -1,6 +1,6 @@
 'use strict';
-const CACHE_NAME = 'ikea-laendervergleich-v6';
-const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
+const CACHE_NAME = 'ikea-laendervergleich-v7';
+const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-backup.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
 });
