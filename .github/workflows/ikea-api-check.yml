@@ -74,10 +74,22 @@ jobs:
           }
 
           try {
-            const response = await fetch("https://api.frankfurter.dev/v2/rates?base=EUR&quotes=CZK,PLN", {
-              signal: AbortSignal.timeout(15000)
-            });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            let response = null;
+            let lastError = null;
+            for (let attempt = 0; attempt < 3; attempt++) {
+              try {
+                const candidate = await fetch("https://api.frankfurter.dev/v2/rates?base=EUR&quotes=CZK,PLN", {
+                  signal: AbortSignal.timeout(20000)
+                });
+                if (!candidate.ok) throw new Error(`HTTP ${candidate.status}`);
+                response = candidate;
+                break;
+              } catch (error) {
+                lastError = error;
+                if (attempt < 2) await new Promise(resolve => setTimeout(resolve, 1200 * (attempt + 1)));
+              }
+            }
+            if (!response) throw lastError || new Error("Exchange-rate request failed");
             const data = await response.json();
             const rows = Array.isArray(data) ? data : [];
             const rates = Object.fromEntries(rows.map(row => [String(row.quote || "").toUpperCase(), Number(row.rate)]));
