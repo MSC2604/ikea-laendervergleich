@@ -62,13 +62,7 @@ function render(){
  
  
  <div class="cart"><div class="cart-top"><h3>Einkaufsliste</h3><span class="cart-count" id="count-${c.id}"></span></div>
- <div class="add-title">Artikel hinzufügen</div><div class="add-grid">
- <div class="field name"><label for="name-${c.id}">Produktname</label><input id="name-${c.id}" placeholder="z. B. KALLAX Regal"></div>
- <div class="field"><label for="no-${c.id}">Artikelnummer</label><input id="no-${c.id}" inputmode="numeric" placeholder="8 Ziffern"></div>
- <div class="field"><label for="price-${c.id}">Preis (${c.currency})</label><input id="price-${c.id}" type="number" min="0.01" step="0.01" placeholder="0,00"></div>
- <button class="btn" onclick="addItem('${c.id}')">+ Hinzufügen</button></div>
- <div class="add-extra"><div class="field"><label for="image-${c.id}">Produktbild-Link (optional)</label><input id="image-${c.id}" type="url" placeholder="https://.../bild.jpg"></div><div class="field"><label for="url-${c.id}">Offizieller Produktlink (optional)</label><input id="url-${c.id}" type="url" placeholder="https://www.ikea.com/..."></div></div>
- <div id="items-${c.id}"></div><div class="total" id="total-${c.id}"></div></div></div></section>`).join('');
+  <div id="items-${c.id}"></div><div class="total" id="total-${c.id}"></div></div></div></section>`).join('');
  countries.forEach(c=>drawCart(c));updateComparison();
 }
 function setStore(id,value){selectedStores[id]=value;save();}
