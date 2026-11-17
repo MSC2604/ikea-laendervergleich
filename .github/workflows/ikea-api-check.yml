@@ -51,7 +51,7 @@ jobs:
               if (!Array.isArray(items)) throw new Error("Unexpected IKEA search response");
               const entry = items.find(item => {
                 const p = item?.product ?? item;
-                return [p?.itemNo, p?.itemNoGlobal].some(value => String(value ?? "").replace(/\\D/g, "") === article);
+                return [p?.itemNo, p?.itemNoGlobal].some(value => String(value ?? "").replace(/\D/g, "") === article);
               });
               if (!entry) throw new Error(`Exact article ${article} not found`);
               const product = entry.product ?? entry;
