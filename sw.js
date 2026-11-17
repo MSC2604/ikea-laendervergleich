@@ -1,5 +1,5 @@
 'use strict';
-const CACHE_NAME = 'ikea-laendervergleich-v4';
+const CACHE_NAME = 'ikea-laendervergleich-v5';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
@@ -12,10 +12,16 @@ self.addEventListener('fetch', event => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+  if (request.mode === 'navigate' || url.pathname.endsWith('/index.html')) {
+    event.respondWith(fetch(request).then(response => {
+      if (response.ok) caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
+      return response;
+    }).catch(async () => (await caches.match(request)) || (await caches.match('./index.html'))));
+    return;
+  }
   event.respondWith(caches.match(request).then(cached => cached || fetch(request).then(response => {
-    if (response.ok && (request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('.svg') || url.pathname.endsWith('.webmanifest'))) {
-      const copy = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+    if (response.ok && (url.pathname.endsWith('.svg') || url.pathname.endsWith('.webmanifest'))) {
+      caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
     }
     return response;
   }).catch(() => caches.match('./index.html'))));
