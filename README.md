@@ -2,20 +2,28 @@
 
 Private, unabhängige Vergleichsseite für IKEA Deutschland, Tschechien und Polen.
 
-## Aktueller Stand
+## Funktionen
 
-Die erste Webversion enthält:
-- eine gemeinsame Suche, die die offiziellen IKEA-Suchseiten der drei Länder öffnet;
-- getrennte Einkaufskörbe für Deutschland (EUR), Tschechien (CZK) und Polen (PLN);
-- Filialauswahl als Startauswahl;
-- lokale Speicherung der Einkaufskörbe im Browser.
+- Gemeinsame Suche nach Produktname oder achtstelliger IKEA-Artikelnummer in allen drei Ländern.
+- Bei Artikelnummern wird die Nummer normalisiert, bis zu 100 Suchtreffer werden angefordert und die Artikelnummer wird exakt abgeglichen.
+- Produktname, Artikelnummer, Bild (wenn von IKEA geliefert), lokaler Preis und IKEA-Produktlink (wenn geliefert).
+- Preisvergleich in Euro anhand des Referenzwechselkurses von Frankfurter.
+- Getrennte Einkaufslisten für Deutschland (EUR), Tschechien (CZK) und Polen (PLN).
+- Lokale Speicherung, JSON-Sicherung und CSV-Export.
+- Keine Filial-Bestandsabfrage.
 
-**Noch nicht enthalten:** automatische Produktdaten, Produktbilder, Live-Preise, Filialbestände und EUR-Umrechnung. Die Seite behauptet deshalb ausdrücklich keine Live-Verfügbarkeit und erfindet keine Daten.
+## Grenzen
+
+Die Suche verwendet die von den IKEA-Webseiten genutzte Suchschnittstelle. Sie ist keine offiziell dokumentierte öffentliche Entwickler-API und kann von IKEA jederzeit geändert oder eingeschränkt werden. Es gibt daher keine Garantie für jede Artikelnummer: Der Artikel muss im jeweiligen Landes-Sortiment vorhanden und in den IKEA-Suchdaten auffindbar sein. Ein fehlender Treffer in einem Land bedeutet nicht automatisch, dass der Artikel weltweit nicht existiert.
+
+Die Produktpreise werden aus den Suchdaten des jeweiligen Landes übernommen. Die Euro-Umrechnung ist ein Referenzvergleich und kein verbindliches Zahlungsangebot. Maßgeblich ist immer der Preis auf der verlinkten IKEA-Länderseite.
+
+Die Live-Erreichbarkeit der IKEA-Schnittstellen muss im Browser geprüft werden. Eine Codeanpassung allein kann keinen erfolgreichen Live-Aufruf für alle drei Länder und alle Artikelnummern garantieren.
 
 ## Veröffentlichung
 
-Das Repository ist für GitHub Pages vorbereitet. Unter Settings → Pages kann als Quelle „Deploy from a branch“ mit Branch `main` und Ordner `/(root)` ausgewählt werden.
+GitHub Pages verwendet Branch `main` und den Ordner `/(root)`. Der Service Worker erhält bei App-Änderungen eine neue Cache-Version, damit installierte Geräte die aktualisierte Oberfläche laden.
 
 ## Datenschutz
 
-Die Warenkörbe werden ausschließlich lokal im Browser mit localStorage gespeichert. Es gibt derzeit keinen Server und keine Übertragung der Einkaufsliste.
+Einkaufslisten und Filialauswahl werden lokal im Browser mit `localStorage` gespeichert. Es gibt keinen eigenen Server und keine Übertragung der Einkaufsliste.
