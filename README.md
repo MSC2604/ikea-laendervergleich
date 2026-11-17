@@ -7,7 +7,8 @@ Private, unabhängige Vergleichsseite für IKEA Deutschland, Tschechien und Pole
 - Gemeinsame Suche nach Produktname oder achtstelliger IKEA-Artikelnummer in allen drei Ländern.
 - Bei Artikelnummern wird die Nummer normalisiert, bis zu 100 Suchtreffer werden angefordert und die Artikelnummer wird exakt abgeglichen.
 - Produktname, Artikelnummer, Bild (wenn von IKEA geliefert), lokaler Preis und IKEA-Produktlink (wenn geliefert).
-- Preisvergleich in Euro anhand des Referenzwechselkurses von Frankfurter.
+- Preisvergleich in Euro anhand der aktuellen Frankfurter-API v2 (kostenlos, ohne API-Schlüssel).
+- Der letzte erfolgreich geladene Wechselkurs wird lokal zwischengespeichert und bei vorübergehendem API-Ausfall weiterverwendet; die Anzeige kennzeichnet ihn dann als zuletzt gespeicherten Kurs.
 - Getrennte Einkaufslisten für Deutschland (EUR), Tschechien (CZK) und Polen (PLN).
 - Lokale Speicherung, JSON-Sicherung und CSV-Export.
 - Keine Filial-Bestandsabfrage.
