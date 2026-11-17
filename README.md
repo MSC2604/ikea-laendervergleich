@@ -28,3 +28,7 @@ GitHub Pages verwendet Branch `main` und den Ordner `/(root)`. Der Service Worke
 ## Datenschutz
 
 Einkaufslisten und Filialauswahl werden lokal im Browser mit `localStorage` gespeichert. Es gibt keinen eigenen Server und keine Übertragung der Einkaufsliste.
+
+## Automatische technische Prüfung
+
+GitHub Actions prüft täglich um 05:00 UTC die Erreichbarkeit der IKEA-Suchendpunkte für Deutschland, Tschechien und Polen anhand des Testartikels 70556067. Dabei werden die exakte Artikelnummer, ein gültiger Landespreis, der Produktlink und die CORS-Freigabe geprüft. Zusätzlich werden die CZK- und PLN-Referenzkurse der Frankfurter-API v2 validiert. Die Prüfung läuft außerdem bei Änderungen an der App und kann manuell in GitHub Actions gestartet werden. Sie ist ein technischer Funktionstest mit einem Beispielartikel, keine Garantie für das gesamte IKEA-Sortiment.
