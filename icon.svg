@@ -1,1 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="b" x2="0" y2="1"><stop stop-color="#1684ee"/><stop offset="1" stop-color="#003c9a"/></linearGradient><linearGradient id="y" x2="0" y2="1"><stop stop-color="#ffed24"/><stop offset="1" stop-color="#ffc900"/></linearGradient></defs><rect width="512" height="512" rx="92" fill="url(#b)"/><ellipse cx="256" cy="132" rx="220" ry="88" fill="url(#y)"/><text x="256" y="171" text-anchor="middle" font-family="Arial" font-size="116" font-weight="900" font-style="italic" fill="#0051ad">IKEA</text><g stroke="#fff" stroke-width="5"><rect x="34" y="252" width="140" height="120" rx="18" fill="#fff"/><rect x="186" y="252" width="140" height="120" rx="18" fill="#fff"/><rect x="338" y="252" width="140" height="120" rx="18" fill="#fff"/></g><g><rect x="44" y="262" width="120" height="67" rx="6" fill="#111"/><path d="M44 285h120v22H44z" fill="#ed1c24"/><path d="M44 307h120v22H44z" fill="#ffda00"/><rect x="196" y="262" width="120" height="67" rx="6" fill="#fff"/><path d="M196 295h120v34H196z" fill="#ed1c24"/><path d="M196 262l60 34-60 33z" fill="#0051a5"/><rect x="348" y="262" width="120" height="67" rx="6" fill="#fff"/><path d="M348 296h120v33H348z" fill="#ed1c24"/></g><g font-family="Arial" font-weight="bold" font-size="28" fill="#0047a8" text-anchor="middle"><text x="104" y="359">DE</text><text x="256" y="359">CZ</text><text x="408" y="359">PL</text></g><g fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"><path d="M36 396h45l22 58h111l25-45H88"/><circle cx="123" cy="476" r="12" fill="#fff"/><circle cx="199" cy="476" r="12" fill="#fff"/></g><path d="M276 405l17-62q4-13 17-10l156 40q14 4 10 18l-17 72q-4 14-18 10l-156-40q-14-4-9-18z" fill="url(#y)" stroke="#fff" stroke-width="5"/><text x="355" y="430" text-anchor="middle" font-family="Arial" font-size="66" font-weight="900" fill="#0051ad">€</text><circle cx="429" cy="399" r="23" fill="none" stroke="#0051ad" stroke-width="9"/><path d="M446 416l20 20" stroke="#0051ad" stroke-width="9" stroke-linecap="round"/><path d="M18 430Q256 490 494 430" fill="none" stroke="#ffdf00" stroke-width="17"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs>
+ <linearGradient id="blue" x2="0" y2="1"><stop stop-color="#1684f5"/><stop offset="1" stop-color="#003b98"/></linearGradient>
+ <linearGradient id="yellow" x2="0" y2="1"><stop stop-color="#fff52c"/><stop offset="1" stop-color="#ffd000"/></linearGradient>
+ <linearGradient id="white" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dce9ff"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#001c56" flood-opacity=".5"/></filter>
+</defs>
+<rect width="512" height="512" rx="86" fill="url(#blue)"/>
+<path d="M0 440Q256 505 512 440" fill="none" stroke="#ffe000" stroke-width="17"/>
+<path d="M320 205l158 0 18 112-176 0z" fill="#72baff" opacity=".18"/>
+<g filter="url(#shadow)">
+ <ellipse cx="256" cy="110" rx="222" ry="86" fill="url(#yellow)"/>
+ <text x="256" y="151" text-anchor="middle" font-family="Arial,sans-serif" font-size="116" font-weight="900" font-style="italic" letter-spacing="-8" fill="#0051ad">IKEA</text>
+</g>
+<g filter="url(#shadow)">
+ <g><rect x="36" y="226" width="136" height="112" rx="18" fill="url(#white)" stroke="#fff" stroke-width="4"/><rect x="46" y="236" width="116" height="68" rx="7" fill="#111"/><path d="M46 258h116v23H46z" fill="#ed1c24"/><path d="M46 281h116v23H46z" fill="#ffda00"/><text x="104" y="326" text-anchor="middle" font-family="Arial" font-size="25" font-weight="900" fill="#0047a8">DE</text></g>
+ <g><rect x="188" y="226" width="136" height="112" rx="18" fill="url(#white)" stroke="#fff" stroke-width="4"/><rect x="198" y="236" width="116" height="68" rx="7" fill="#fff"/><path d="M198 270h116v34H198z" fill="#ed1c24"/><path d="M198 236l58 34-58 34z" fill="#0051a5"/><text x="256" y="326" text-anchor="middle" font-family="Arial" font-size="25" font-weight="900" fill="#0047a8">CZ</text></g>
+ <g><rect x="340" y="226" width="136" height="112" rx="18" fill="url(#white)" stroke="#fff" stroke-width="4"/><rect x="350" y="236" width="116" height="68" rx="7" fill="#fff"/><path d="M350 270h116v34H350z" fill="#ed1c24"/><text x="408" y="326" text-anchor="middle" font-family="Arial" font-size="25" font-weight="900" fill="#0047a8">PL</text></g>
+</g>
+<g filter="url(#shadow)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M35 366h48l28 77h116l30-58H96" stroke-width="15"/>
+ <circle cx="133" cy="465" r="15" fill="#fff" stroke="none"/><circle cx="211" cy="465" r="15" fill="#fff" stroke="none"/>
+ <path d="M87 366l-12-26H43" stroke-width="12"/>
+</g>
+<g filter="url(#shadow)">
+ <path d="M278 386l19-75q4-15 20-11l151 40q16 4 12 20l-19 75q-4 15-20 11l-151-40q-16-4-12-20z" fill="url(#yellow)" stroke="#fff" stroke-width="5"/>
+ <text x="354" y="421" text-anchor="middle" font-family="Arial,sans-serif" font-size="72" font-weight="900" fill="#0051ad">€</text>
+ <circle cx="429" cy="376" r="25" fill="none" stroke="#0051ad" stroke-width="10"/><path d="M447 395l20 20" fill="none" stroke="#0051ad" stroke-width="10" stroke-linecap="round"/>
+</g>
+</svg>
